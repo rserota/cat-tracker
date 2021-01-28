@@ -1,11 +1,12 @@
+require('dotenv').config()
 const axios = require('axios')
 const cheerio = require('cheerio');
 const nodemailer = require('nodemailer')
 const sesTransport = require('nodemailer-ses-transport');
 
 var SESCREDENTIALS = {
-  accessKeyId: "AKIA5QWXT7S354K4NAWF",
-  secretAccessKey: "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"
+  accessKeyId: process.env.AWSACCESSKEYID,
+  secretAccessKey: process.env.AWSSECRETACCESSKEY
 };
 
 var transporter = nodemailer.createTransport(sesTransport({
@@ -50,7 +51,7 @@ const main = async ()=>{
 
 	var mailOptions = {
 		from: 'catdad@frivolous.biz',
-		to: ['raphael.serota@gmail.com', 'tetelbenton@gmail.com'] // list of receivers
+		to: ['raphael.serota@gmail.com', 'tetelbenton@gmail.com'], // list of receivers
 		subject: 'Your daily cats!', // Subject line
 		html: notableCats.map(function(cat){
 			return `
